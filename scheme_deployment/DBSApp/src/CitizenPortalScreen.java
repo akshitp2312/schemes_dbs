@@ -59,6 +59,17 @@ public class CitizenPortalScreen {
 		Object col[] = {"Scheme ID", "Scheme", "Sector", "Monetary", "Individual/Household", "Managing Govt."};
 		model.setColumnIdentifiers(col);
 		table.setModel(model);
+		
+		JButton btnNewButton = new JButton("Update Details");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UpdateDetails ud=new UpdateDetails();
+				ud.UpdateDetails();
+			}
+		});
+		btnNewButton.setBounds(73, 679, 204, 53);
+		frame.getContentPane().add(btnNewButton);
 		updateTable();
 	}
 
@@ -269,6 +280,13 @@ public void updateTable() {
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateTable();
+				entryData=Citizen.display_citizen_details(con, pst, rs, aadhar_id);
+//				initialize();
+				txtName.setText(entryData[0]);
+				txtAadharNumber.setText(entryData[1]);
+				txtState.setText(entryData[2]);
+				txtCountRedeemingSchemes.setText(entryData[3]);
+				txtBenefitReceived.setText(entryData[4]);
 			}
 		});
 		btnRefresh.setBounds(1361, 10, 85, 21);

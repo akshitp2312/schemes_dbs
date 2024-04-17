@@ -24,7 +24,7 @@ public class EligibilityCriteria {
 	public static  void Scheme2Eligible(Connection con, PreparedStatement pst, String scheme_id) 
 	{
 		con = MySQLConnection.connectDB();
-		String sql = "insert into is_eligible(aadhar_id, scheme_id) select aadhar_id, ? from citizen where area = 'Rural' and household_income<800000";
+		String sql = "insert into is_eligible(aadhar_id, scheme_id) select aadhar_id, ? from citizen where bank_account = 1 and emp_type='Unemployed'";
 		try
 		{
 			pst = con.prepareStatement(sql);
@@ -43,7 +43,26 @@ public class EligibilityCriteria {
 	public static  void Scheme3Eligible(Connection con, PreparedStatement pst, String scheme_id) 
 	{
 		con = MySQLConnection.connectDB();
-		String sql = "insert into is_eligible(aadhar_id, scheme_id) select aadhar_id, ? from citizen where gender='F' and emp_type='Unemployed'";
+		String sql = "insert into is_eligible(aadhar_id, scheme_id) select aadhar_id, ? from citizen where area = 'Rural' and household_income<800000";
+		try
+		{
+			pst = con.prepareStatement(sql);
+			pst.setString(1, scheme_id);
+			pst.execute();
+			pst.close();	
+		}
+		 catch (Exception e1) 
+		{
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, e1);
+		}
+	}
+	
+	
+	public static  void Scheme4Eligible(Connection con, PreparedStatement pst, String scheme_id) 
+	{
+		con = MySQLConnection.connectDB();
+		String sql = "insert into is_eligible(aadhar_id, scheme_id) select aadhar_id, ? from citizen where gender='F' and emp_type='Unemployed' and state='Karnataka'";
 		try
 		{
 			pst = con.prepareStatement(sql);
